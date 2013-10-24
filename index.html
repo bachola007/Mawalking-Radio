@@ -1,0 +1,493 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Mawalking Radio App for Android with PhojneGap Build</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="appML/css/hicTech/MobileAppStyle.css">
+            <style type="text/css" media="all">@import "appML/themes/apple/theme.css";</style>
+
+            
+            <script type="text/javascript" charset="utf-8" src="appML/js/jquery/jquery-1.4.4-hicVersion-min.js"></script>
+            <script type="text/javascript" charset="utf-8" src="appML/js/plugins/livequery/jquery.livequery-1.0.3.js"></script>
+            <script type="text/javascript" charset="utf-8" src="appML/js/hicTech/appManager.js"></script>
+
+            <script type="text/javascript" charset="utf-8" src="js/jquery-liscroller.js"></script>
+            <link rel="stylesheet" href="css/jquery-liscroller.css">
+                
+            <script type="text/javascript" src="js/zflow.js"></script>
+            <link rel="stylesheet" type="text/css" href="css/zflow.css" />
+                
+                
+            <link rel="stylesheet" href="css/index.css">
+            <script type="text/javascript" src="js/index.js"></script>
+                    
+                    
+                    <script>
+                        
+                        var allowClick = true;
+                        function preventGhostClick(){
+                            allowClick = false;
+                            setTimeout(function(){
+                                       allowClick = true;
+                                       },800);
+                        }
+                    
+                        var inappbrowser;
+                        var zimages=new Array();
+                        var newarray=new Array();
+                        
+                        var not_online=0;
+ 
+                        window.addEventListener('load', start, false);
+                        
+
+                    
+                        function start(){
+                            
+                            console.log("appMLReady");
+
+
+                            // IMPORTANT
+                            var viewportheight = (window.height=="480")?420:350;
+                            $(document).bind('touchmove', function (e) {
+                                             var $scroller = $(e.target).closest(".cssscrollable");
+                                             if($scroller.length==0){
+                                                console.log("preventdefault not scroller");
+                                                e.preventDefault();
+                                             }
+                            });
+                            
+                            
+                            
+                            create_sharepage();
+                        
+                            fetch_title();
+                            
+                            setInterval("fetch_title()",10000);
+
+                            $("#title").css("color","#454545").css("text-shadow","0 0 #000");
+                            
+                            $("#news_page:visible").livequery(function(){
+                                                              listNews();
+                                                              });
+                                                              
+                                                              
+                            $("#schedule_page:visible").livequery(function(){
+                                $("#schedule_table").html("<br><br><table>");
+                                for(i=0;i<schedule.length;i++){
+                                    $("#schedule_table").append("<tr><td>"+schedule[i][0]+"</td><td>"+schedule[i][1]+" - "+schedule[i][2]+"</td></tr>");
+                                }
+                                $("#schedule_table").append("</table>");
+                            });
+                                                                                                    
+
+
+
+                            lookup_schedule();
+                            listVideos();
+                                                                                                    
+                                                                                                    
+                        }
+
+
+
+                    
+                    var thisstream="off";
+                    var serverIP;
+                    var myaudio="";
+                    myaudio.id = 'playerMyAdio';
+                    
+                    
+ 
+
+                    function toogleStream() {
+                        if(thisstream=="on"){
+                            myaudio.pause();
+                            console.log("pause");
+                            thisstream="off";
+                            $("#title").css("color","#454545").css("text-shadow","0 0 #000");
+                            $("#audiobutton").attr("src","img/play.png");
+                        }else{
+                            myaudio.play();
+                            console.log("play");
+                            thisstream="on";
+                            $("#title").css("color","#ffba00").css("text-shadow","0 0 0.2em #ffba00,0 0 0.2em #ffba00");
+                            $("#audiobutton").attr("src","img/pause.png");
+                        }
+                    }
+                    
+                    
+                    
+                    function fetch_title() {
+                        cachekiller=new Date();
+                        $.ajax({
+                               type: 'POST',
+                               url: "http://www.budgetappdev.com/apps/mawalking/extract.php?cachekiller="+cachekiller,
+                               async: false,
+                               data: {
+                               },
+                               success: function (data) {
+                               console.log("data="+data);
+                               document.getElementById("title").innerHTML = data[1];
+                               serverIP = data[0];
+                               if(myaudio==""){
+                               myaudio = new Audio('http://'+serverIP);
+                               }
+                               },
+                               error: function (xhr, err1, err2) {console.log("error:"+err2)},
+                               dataType: "json",
+                               timeout: 10000
+                               });
+                    }
+                    
+                    
+                        </script>
+                    
+                    
+                <style>
+                    .blur{
+                        -webkit-filter:blur(10px);
+                    }
+                    
+                    ::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                        
+                .cssscrollable{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:350px;}
+                .cssscrollable > div{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:350px;}
+                .cssscrollable > div > div{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:355px;}
+                
+                
+                    @media (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+                        .cssscrollable{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:437px;}
+                        .cssscrollable > div{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:437px;}
+                        .cssscrollable > div > div{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:445px;}
+                    }
+                    
+                    
+            </style>
+    </head>
+    
+    <body>
+        
+        <appml>
+            <loading></loading>
+            
+            <content>
+                
+                <navigation height="44"></navigation>
+                
+                <panel id="radio" title="On Air" data-appml-icon="icon1.png">
+                    
+                    <page id="list" title="homeTitle" scrollable="false">
+                        
+                        <img class="mic" src="img/mic.png">
+                            
+                        <img class="africa" src="img/africa.png">
+                                
+                                
+                                <div id="player">
+                                    <img id="audiobutton" src="img/play.png" onclick="toogleStream()" width="105px" style="position:relative; top:30px; left:210px">
+                                    <div align="center" style="font-size: 18px; color:#000">PLAYING NOW</div>
+                                    <div style="height:55px; width:320px; border:1px solid #666; background: -webkit-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 29%);">
+                                        <div class="myMarquee">
+                                            <div class="scroller" onclick="toogleStream()">
+                                                <div id="title"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    </page>
+                    
+                </panel>
+                
+                
+                
+                
+                
+                
+                
+                <panel id="news" title="News" data-appml-icon="icon2.png">
+                    <page id="news_page" scrollable="false">
+                        <div class='list_title'>Latest Africa News<span style="font:normal 15px AvenirNextCondensed-Regular; padding-left:20px">by allafrica.com</span></div>
+                        <div id="news_list" class="cssscrollable">
+                            <div>
+                                <div>
+                                    <div align="center" style="padding-top:100px; font:normal 24px HelveticaNeue-UltraLight">LOADING NEWS...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                </panel>
+                
+                
+                
+                
+                
+                
+                <panel id="schedule" title="Schedule" data-appml-icon="icon3.png">
+                    <page id="schedule_page" scrollable="false">
+                        <div class='list_title'>Program Schedule</div>
+                        
+                        <div id="schedule_wrapper">
+                            <div align="justify">
+                                <div id="schedule_table">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <img class="mic" src="img/mic.png">
+                    </page>
+                </panel>
+                
+                
+                
+                
+                
+                
+                <panel id="videos" title="Videos" data-appml-icon="icon4.png">
+                    <page id="video_page" title="homeTitle" scrollable="false">
+                        <div class='list_title'>Music Videos</div>
+                        <div class="zflow">
+                            <div class="centering">
+                                <div id="tray" class="tray"></div>
+                            </div>
+                        </div>
+                        <div align="center" style="z-index:1000000; position:relative; top:280px; left:0px; font:normal 18px AvenirNextCondensed-Regular; text-decoration:underline" onclick="window.open('http://www.youtube.com/channel/UCKqW5SBSlvjOToKfvfaQI2g','_blank','location=no')">Visit our Youtube Channel for more videos</div>
+                        <img class="mic" src="img/mic.png">
+                    </page>
+                </panel>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <panel id="more" title="More" data-appml-icon="icon5.png">
+                    
+                    <page id="more_page" scrollable="false">
+                        <div style="margin-top:50px">
+                            <div onclick="jQT.goTo('#music_styles','slide'); preventGhostClick();" class="list_title" style="border-top:1px solid #ccc"><img src="img/icon_music.png" width="50" style="vertical-align:middle"><span style="vertical-align:middle">Music Styles</div>
+                            
+                            <div onclick="jQT.goTo('#aboutus','slide'); preventGhostClick();" class="list_title"><img src="img/icon_aboutus.png" width="50" style="vertical-align:middle"><span style="vertical-align:middle">About Us</div>
+                            
+                            <div onclick="window.open('http://www.facebook.com/pages/Mawalking-Radio/182798681767685', '_blank', 'location=no'); preventGhostClick();" class="list_title"><img src="img/icon_facebook2.png" width="50" style="vertical-align:middle"><span style="vertical-align:middle">Visit us on Facebook</div>
+                            
+                            <div onclick="window.open('http://twitter.com/#!/mawalkingRadio', '_blank', 'location=no'); preventGhostClick();" class="list_title"><img src="img/icon_twitter2.png" width="50" style="vertical-align:middle"><span style="vertical-align:middle">Visit us on Twitter</span></div>
+                            
+                            <div onclick="toggle_sharepage('open'); preventGhostClick();" class="list_title"><img src="img/icon_share2.png" width="50" style="vertical-align:middle"><span style="vertical-align:middle">Share Mawalking Radio</span></div>
+                            
+                            <p align="center" style="padding-top:10px; color:#ccc" onclick="window.open('http://www.budgetappdev.com', '_blank', 'location=yes,enableViewportScale=yes'); preventGhostClick();">&nbsp;App developed by:<br>
+                            <img src="img/BAD.png" style="opacity:.75" width="80px">
+                                </p>
+                                </div>
+                        
+                        <img class="mic" src="img/mic.png">
+                    </page>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <page id="aboutus" scrollable="false">
+                        <div class='list_title'>About us</div>
+                        <div style="font:normal 16px AvenirNextCondensed-Regular; padding:10px 90px 0 10px;">Afro-Carib Djs/Producers in North America who Premier,Promote and Play various Genres of Afro-Carib Music.
+                            <br>Team Mawalking is committed to premiering, promoting and introducing various DJs who specialize in different genres of African music like</div><div style="font:normal 16px AvenirNextCondensed-Regular; padding:0px 10px 0 10px;">Afro Zouk, Kizomba, Coupe Decale, Hip-life, Naija, Makossa, Soukous, Ndombolo, Gumbe, Kompa, Cabo Love, Kuduro, Kwaito, Genge, Bongo, Soulistic Music and all other varieties of music we love and enjoy in Africa.
+                        </div>
+                        
+                        <img class="mic" src="img/mic.png">
+                    </page>
+                    
+                    
+                    
+                    
+                    
+                    <page id="music_styles" scrollable="false">
+                        <div class='list_title'>Music Styles</div>
+                        <div class="cssscrollable">
+                            <div>
+                                <div>
+                            <ul style="border:0" style="margin:0;padding:20px;font:normal 15px AvenirNextCondensed-Regular">
+                            <li class="arrow"><a href="#music_Soukous">Soukous</a></li>
+                            <li class="arrow"><a href="#music_Ndombolo">Ndombolo</a></li>
+                            <li class="arrow"><a href="#music_Kizomba">Kizomba</a></li>
+                            <li class="arrow"><a href="#music_Cabo">Cabo Love</a></li>
+                            <li class="arrow"><a href="#music_Kwaito">Kwaito</a></li>
+                            <li class="arrow"><a href="#music_Coupe">Coupé-Décalé</a></li>
+                            <li class="arrow"><a href="#music_Kuduro">Kuduro</a></li>
+                            <li class="arrow"><a href="#music_Hiplife">Hiplife</a></li>
+                            <li class="arrow"><a href="#music_AzontGo">AzontGo</a></li>
+                            <li class="arrow"><a href="#music_Afrobeat">Afrobeat</a></li>
+                            <li class="arrow"><a href="#music_Makossa">Makossa</a></li>
+                            <li class="arrow"><a href="#music_Genge">Genge</a></li>
+                            </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    <page id="music_Soukous" scrollable="false">
+                        <div class='list_title'>Soukous</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            Soukous (also known as Lingala and Congo) is a dance music  musical genre that originated in the two neighbouring countries of Belgian Congo and French Congo during the 1930s and early 1940s, and which has gained popularity throughout Africa. "Soukous" (a derivative of the French word secousse, "shake" was originally the name of a dance popular in the Congos in the late 1960s, an African version of rumba. Although the genre was initially known as rumba (sometimes termed specifically as African rumba), the term "soukous" has come to refer to African rumba and its subsequent developments.<br>
+                            Soukous is called Congo music in West Africa, and Lingala in Kenya, Uganda and Tanzania ñ referring to the Lingala language of the region from where it originated. In Zambia and Zimbabwe, where Congolese music is also influential, it is usually referred to as Rumba. In the 1980s and early 1990s, a fast-paced style of soukous known as kwassa kwassa ñ named after a popular dance, was popular. A style called ndombolo, also named after a dance, is currently popular. Soukous also mixes styles from zouk music.<br>
+                            In the 1980s soukous became popular in London and Paris. A few more musicians left Kinshasa to work around central and east Africa before settling in either the UK or France. The basic line-up for a soukous band included three or four guitars, bass guitar, drums, brass, vocals, and some of them having over 20 musicians. Lyrics were often in Lingala and occasionally in French. In the late 1980s and 1990s, Parisian studios were used by many soukous stars, and the music became heavily reliant on synthesizers and other electronic instruments. Some artists continued to record for the Congolese market, but others abandoned the demands of the Kinshasa public and set out to pursue new audiences. Some, like Paris-based Papa Wemba maintained two bands, Viva La Musica for soukous, and a group including French session players for international pop.<br>
+                            Artists include:<br>
+                            Kanda Bongo Man, Diblo Dibala,Jeannot Bel Musumbu, Mbilia Bel, Yondo Sister, Tinderwet, Loketo, Rigo Star, Madilu System, Soukous Stars and veterans like Pepe Kalle and Koffi Olomide
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    
+                    <page id="music_Ndombolo" scrollable="false">
+                        <div class='list_title'>Ndombolo</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            The fast soukous music currently dominating dance floors in central, eastern and western Africa is called soukous ndombolo, performed by Dany Engobo, Awilo Longomba, Aurlus Mabele, Koffi Olomide and groups like Extra Musica and Wenge Musica among others.<br>
+                            The hip-swinging dance to the fast pace of soukous ndombolo has come under criticism amid charges that it is obscene. There have been attempts to ban it in Mali, Cameroon and Kenya. After an attempt to ban it from state radio and television in the Democratic Republic of the Congo in 2000, it became even more popular. In February, 2005 ndombolo music videos in the DR Congo were censored for indecency, and video clips by Koffi Olomide, JB M'Piana and Werrason were banned from the airwaves.
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    <page id="music_Kizomba" scrollable="false">
+                        <div class='list_title'>Kizomba</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            Kizomba is a Dance and music that was created in Angola in late 1989 to early 1990s. It is also performed in other lusophone African countries, in Europe and in USA. It is known for having a slow, insistent, somewhat harsh, yet sensuous rhythm; the result of electronic percussion. It is ideally danced accompanied by a partner, very smoothly and slowly, though not too tightly. A rather large degree of flexibility in the knees is required, owing to the frequent requirement that dancers bob up and down.<br>
+                            The influence of Angolan kizomba is felt in most Portuguese-speaking African countries, but also Portugal (especially in Lisbon and surrounding suburbs such as Amadora or Almada), where communities of immigrants have established clubs centered on the genre in a renewed kizomba style
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    <page id="music_Cabo" scrollable="false">
+                        <div class='list_title'>Cabo Love</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            Cabo love or the Coladeira is characterized by having a variable tempo, from allegro to andante, a 2-beat bar[1], and in its most traditional form by having an harmonic structure based in a cycle of fifths, while the lyrics structure is organized in strophes that alternate with a refrain. The coladeira is almost always monotonic[2], i.e. composed in just one tonality. Compositions that use more than a tonality are rare and generally they are cases of passing from a minor to major tonality or vice-versa.<br>
+                            From the 80ís one can notice the strong influence of zouk from the French Antilles in the Cape Verdean music. This influence is not that recent as sometimes is thought, already in the 60's and 70ís there were influences from Haitian music (Kompa/Compas), but it is only from the second half of the 80ís that the influence of the Antilles kicks in, due to the growing commercial success of certain bands in France (for instance, Kassav. It is mostly on the younger generation and in Cape Verdean musicians abroad that one can find who appreciates and practice this variant of the coladeira. It is also in this period that the zouk-influenced coladeira is excessively commercialized and banalized.[5]
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    <page id="music_Kwaito" scrollable="false">
+                        <div class='list_title'>Kwaito</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            Kwaito is a music genre that emerged in Johannesburg, South Africa, during the 1990s. It is a variant of house music featuring the use of African sounds and samples. Typically at a slower tempo range than other styles of house music, Kwaito often contains catchy melodic and percussive loop samples, deep bass lines, and vocals. Although bearing similarities to hip hop music, a distinctive feature of Kwaito is the manner in which the lyrics are sung, rapped and shouted. American producer Diplo has described Kwaito as "slowed-down garage music," most popular among the black youth of South Africa.[1]
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    <page id="music_Coupe" scrollable="false">
+                        <div class='list_title'>Coupé-Décalé</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            Coupé-Décalé is a type of popular dance music originating from Côte d'Ivoire and the Ivorian diaspora in Paris, France. Drawing heavily from Zouglou, Zouk, and Congolese rhythms, Coupé-Décalé is a very percussive style featuring African samples, deep bass, and repetitive, minimalist arrangements. The prominent artists of Coupé-Décalé are Douk-Saga (Doukouré) with its Jet Set, DJ Brico, DJ Arsenal, Papa Ministre with his famous tune "Coupé-Décalé Chinois", David Tayorault, Afrika Reprezenta, and many other talented Ivorian artists. DJ Lewis is a particularly notable singer, famous for his Grippe Aviaire Dance (en: avian flu dance)nick princy le president.[3]<br>
+                            In 2005, Jessy Matador decided to create his own group called "La Sélésao" composed of members Dr.Love, Linho and Benkoff. The same members also formed the first edition of the group Magic System. In late 2007, they signed with Oyas Records before signing with Wagram Records in spring 2008. They released their début single "Décalé Gwada" in June 2008, becoming one of the hits of that summer. On 24 November 2008 the group released the album Afrikan New Style, a musical hybrid of African and Caribbean influences with more urban sounds.
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    <page id="music_Kuduro" scrollable="false">
+                        <div class='list_title'>Kuduro</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            Kuduro (or kuduru) is a type of music and dance originally born in Angola in the 1980s. It is characterized as uptempo, energetic, and danceable. Kuduro, which translates as "hard ass", began in Luanda, Angola in the late 80s. Initially, producers sampled traditional carnival music like zouk and soca from the Caribbean and semba from Angola and laid this around a fast 4/4 beat. Artists include Cabo Snoop.
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    <page id="music_Hiplife" scrollable="false">
+                        <div class='list_title'>Hiplife</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            Hiplife is a Ghanaian musical style which fuses highlife and hip hop.[1] It is also influenced by dancehall and reggae. Recorded in Ghanaian languages such as Twi, Ewe and Ga, hiplife is rapidly gaining popularity throughout West Africa and abroad, especially in the United Kingdom, United States, Canada and Germany.
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    <page id="music_AzontGo" scrollable="false">
+                        <div class='list_title'>AzontGo</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            AzontGo is an original Ghanaian expressive dance and music form. AzontGo Dance form incorporates complex co-ordinated body movement and non-verbal communication in a rhythmic fashion in very few one-two timed steps. Just like most African dances, knee bending and hip movements are rudiments to dancing it. The dance has effectively evolved from a few rudimentary moves to embrace depictions of ironing,washing, driving, boxing, grooming, praying, swimming, and others. Generally, the dance reflects the creativity and rich sense of humour of the Ghanaian people. The dance, which is usually performed with an accompanying smile, evolved from the combination of several local dance moves that originated from the southern-most part of Ghana during the early 2000s. The dance has evolved with the fast pace dance culture of modern West Africa. It is also true that before the dance became famous, youth in senior high schools of Ghana had a similar but different way of doing the dance. A modification of that is what we see today. It involved a similar movement of the feet, hands, and hips and, at the end of every move, a gun shot was mimicked with the hand and, if possible, the mouth. AzontGo, when taught effectively can be learned within ten minutes, according to experienced AzontGo teachers.
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    <page id="music_Afrobeat" scrollable="false">
+                        <div class='list_title'>Afrobeat</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            Afrobeat is a combination of traditional Yoruba music, jazz, highlife, funk and chanted vocals,[1] fused with percussion and vocal styles, popularised in Africa in the 1970s. Its main creator was the Nigerian multi-instrumentalist and bandleader Fela Kuti, who gave it its name,[1] who used it to revolutionise musical structure as well as the political context in his native Nigeria. It was Kuti who coined the term "afrobeat" upon his return from a U.S. tour with his group Nigeria '70 (formerly Koola Lobitos). Afrobeat features chants, call-and-response vocals, and complex, interacting rhythms.[1]<br>
+                            The new sound hailed from a club that he established called the Afro-Shrine. Upon arriving in Nigeria, Kuti also changed the name of his group to Africa '70. The band maintained a five-year residency in the Afro-Shrine from 1970 to 1975 while afrobeat thrived among Nigerian youth. Afrobeat is now one of the most recognizable music genres in the world and has influenced as many Western musicians as it has African ones with its exuberant style and polyrhythms.
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    <page id="music_Makossa" scrollable="false">
+                        <div class='list_title'>Makossa</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            Makossa is a type of music that is most popular in urban areas in Cameroon. It is similar to soukous, except that it includes strong bass rhythm and a prominent horn section. Makossa, which means "(I) dance" in Duala,[1] originated from a type of Duala dance called kossa, with significant influences from jazz, ambasse bey, Latin music, highlife and rumba. While the makossa style began in the 1950s, the first recordings were not seen until a decade later. Artists such as Eboa Lotin, Misse Ngoh and especially Manu Dibango popularized the style outside of Cameroon in the late 1960s. Makassi is a lighter style of makossa. Makossa in the 80's saw a wave of mainstream success across Africa, and to a lesser extent, abroad, as Latin influences, Martinican zouk, and pop music changed its form.<br>
+                            The two musicians largely credited with modernizing makossa are sax player Manu Dibango and Emmanuel Nelle Eyoum. Eyoum started using the term 'kossa, kossa' in his songs with his group Los Calvinos. But it was Emmanuel 'Manu' Dibango who popularized it to the world with his song "Soul Makossa", which came out in the early 1970s. The chant from the song, 'mamako, mamasa, maka makossa', was later used by Michael Jackson, in "Wanna Be Startin' Somethin'," and many other performers throughout the years (see Soul_Makossa - The refrain and its adaptations). The 2010 World cup also brought Makossa style to the international stage as Shakira sampled the Golden Sounds popular song, Zamina mina (Zangalewa) and brought the Makossa sound again to the international stage.
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                    
+                    <page id="music_Genge" scrollable="false">
+                        <div class='list_title'>Genge</div>
+                        <div align="justify" style="font:normal 15px AvenirNextCondensed-Regular" class="cssscrollable">
+                            <div>
+                                <div style="padding:0 10px;">
+                            Genge music, or simply Genge, is a genre of hip hop music that had its beginnings in Nairobi, Kenya. The name was coined by Clemo and popularized by Kenyan rappers Jua Cali and Nonini who started off at Calif Records. It is a style that incorporates hip hop, dancehall and traditional African music styles. It is commonly sung in Sheng (slang), Swahili or local dialects. The term Genge is a sheng word for "a group or a mass of people".<br>
+                            As Kenyan urban music became more and more popular, Kenyan artists and music fans wanted to have a common name for their music and lots of names were suggested; among them were Boomba music, Kapuka, Gemba among others. Around this time Nonini started a campaign to popularize the term "genge" to refer to Kenyan urban music, but also specifically music by artists on Calif Records.
+                            Calif-style Genge was originated by producer Clement "Clemo" Rapudo of Calif Records located in California Estate, Nairobi. It was popularized by rappers, Nonini with his song "Manzi wa Nairobi" and Jua Cali with the songs "Nipe Asali","Ruka". Due to disagreement on the identity Kenyan urban music, the name Genge is now more commonly used to describe music from Calif Records.
+                                </div>
+                            </div>
+                        </div>
+                    </page>
+                </panel>
+                
+                <toolbar></toolbar>
+                
+            </content>
+            
+        </appml>
+        
+    </body>
+</html> 
+
+
+
+
+

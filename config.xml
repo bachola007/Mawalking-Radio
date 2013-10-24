@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.budgetappdev.mawalking"
+        version   = "0.1.0">
+    <name>Mawalking Radio</name>
+
+    <description>
+        Mawalking Radio
+    </description>
+
+    <preference name="fullscreen" value="true" />
+		<preference name="stay-in-webview" value="true" />
+
+<access origin=*" />
+
+<icon src="assets/icon_36.png" gap:platform="android" gap:density="ldpi" />
+<icon src="assets/icon_48.png" gap:platform="android" gap:density="mdpi" />
+<icon src="assets/icon_72.png" gap:platform="android" gap:density="hdpi" />
+<icon src="assets/icon_96.png" gap:platform="android" gap:density="xhdpi" />
+
+<gap:plugin name="com.phonegap.plugins.EmailComposer" />
+<gap:plugin name="com.phonegap.plugins.SMSComposer" />
+</widget>
