@@ -12,7 +12,7 @@
     <preference name="fullscreen" value="true" />
 		<preference name="stay-in-webview" value="true" />
 
-<access origin=*" />
+<access origin=com.budgetappdev.mawalkingradio" />
 
 <icon src="assets/icon_36.png" gap:platform="android" gap:density="ldpi" />
 <icon src="assets/icon_48.png" gap:platform="android" gap:density="mdpi" />
