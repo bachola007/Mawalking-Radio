@@ -10,11 +10,11 @@ body {
     width:200px;
     position:absolute;
     top:15px;
-    left:170px
+    right:200px
 }
 
 .africa{
-    width:220px;
+    width:50vw;
     position:absolute;
     top:40px;
     left:-10px
@@ -189,7 +189,9 @@ p{
     padding-left:15px;
     text-align:left;
     border-bottom: 1px solid #CCC;
-    font:normal 28px AvenirNextCondensed-UltraLight;
+    font:normal 22px AvenirNextCondensed-UltraLight;
+		height:50px;
+		overflow:hidden;
 }
 
 .list{
