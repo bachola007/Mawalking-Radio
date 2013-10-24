@@ -12,12 +12,7 @@
     <preference name="fullscreen" value="true" />
 		<preference name="stay-in-webview" value="true" />
 
-<access origin=com.budgetappdev.mawalkingradio" />
-
-<icon src="assets/icon_36.png" gap:platform="android" gap:density="ldpi" />
-<icon src="assets/icon_48.png" gap:platform="android" gap:density="mdpi" />
-<icon src="assets/icon_72.png" gap:platform="android" gap:density="hdpi" />
-<icon src="assets/icon_96.png" gap:platform="android" gap:density="xhdpi" />
+<access origin="*"/>
 
 <gap:plugin name="com.phonegap.plugins.EmailComposer" />
 </widget>
