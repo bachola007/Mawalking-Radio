@@ -20,5 +20,4 @@
 <icon src="assets/icon_96.png" gap:platform="android" gap:density="xhdpi" />
 
 <gap:plugin name="com.phonegap.plugins.EmailComposer" />
-<gap:plugin name="com.phonegap.plugins.SMSComposer" />
 </widget>
