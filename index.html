@@ -85,8 +85,10 @@
                                 $("#schedule_table").append("</table>");
                             });
                                                                                                     
-
-
+														var screenheight=window.screen.height;
+														$(".cssscrollable").css("height",screenheight+"px");
+                            $(".cssscrollable > div").css("height",screenheight+"px");
+                            $(".cssscrollable > div > div").css("height",screenheight*1.05+"px");
 
                             lookup_schedule();
                             listVideos();
