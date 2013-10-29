@@ -1,51 +1,57 @@
-/**
- * SMS Composer plugin for Cordova
- * window.plugins.SMSComposer
- * 
+/*
+ *
+ * SMS Builder plugin for PhoneGap
+ * window.plugins.SMSBuilder
+ *
  * @constructor
+ *
  */
-function SMSComposer()
+function SMSBuilder()
 {
 	this.resultCallback = null;
 }
 
-SMSComposer.ComposeResultType =
+SMSBuilder.BuildResultType =
 {
-Cancelled:0,
-Sent:1,
-Failed:2,
-NotSent:3
+    Cancelled:0,
+    Sent:1,
+    Failed:2,
+    NotSent:3
 }
 
-SMSComposer.prototype.showSMSComposer = function(toRecipients, body)
+SMSBuilder.prototype.showSMSBuilder = function(toRecipients, body)
 {
-	
 	var args = {};
-	
+
 	if(toRecipients)
 		args.toRecipients = toRecipients;
-	
+
 	if(body)
 		args.body = body;
-	
-	cordova.exec("SMSComposer.showSMSComposer",args);
+
+	cordova.exec(null, null, "SMSBuilder", "showSMSBuilder", [args]);
 }
 
-SMSComposer.prototype.showSMSComposerWithCB = function(cbFunction,toRecipients,body)
+SMSBuilder.prototype.showSMSBuilderWithCB = function(cbFunction,toRecipients,body)
 {
 	this.resultCallback = cbFunction;
-	this.showSMSComposer.apply(this,[toRecipients,body]);
+	this.showSMSBuilder.apply(this,[toRecipients,body]);
 }
 
-SMSComposer.prototype._didFinishWithResult = function(res)
+SMSBuilder.prototype._didFinishWithResult = function(res)
 {
 	this.resultCallback(res);
 }
 
 cordova.addConstructor(function() {
-					   
-					   if(!window.plugins)	{
-					   window.plugins = {};
-					   }
-					   window.plugins.smsComposer = new SMSComposer();
-					   });
+
+    if(!window.plugins)	{
+        window.plugins = {};
+    }
+
+	if (!window.Cordova) {
+		window.Cordova = cordova;
+	}
+
+    window.plugins.smsBuilder = new SMSBuilder();
+});
