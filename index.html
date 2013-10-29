@@ -46,6 +46,23 @@
                         window.addEventListener('load', start, false);
                         
 
+                function shouldRotateToOrientation (rotation) {
+alert(orientation);
+                    if(window.screen.height==568) return false;
+                    if(window.screen.height==480) return false;
+
+                    switch (rotation) {
+                            case 0:
+                            return true;
+                            case 180:
+                            return true;
+                            case 90:
+                            return true;
+                            case -90:
+                            return true;
+                        }
+
+                }
                     
                         function start(){
                             

@@ -27,8 +27,10 @@ body {
 }
 
 #player{
+		width:100%;
+		border:1px dotted blue;
     position:absolute;
-    top:250px;
+    top:350px;
 }
 
 
