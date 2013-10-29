@@ -86,14 +86,14 @@ function parseXML(xml) {
 
 
 function share_by_SMS(){
-window.plugins.smsComposer.showSMSComposerWithCB(function(result){
+window.plugins.smsBuilder.showSMSBuilderWithCB(function(result){
                                                  
                                                  if(result == 0)
-                                                 onsole.log("Cancelled");
+                                                 console.log("Cancelled");
                                                  else if(result == 1)
-                                                 onsole.log("Sent");
+                                                 console.log("Sent");
                                                  else if(result == 2)
-                                                 onsole.log("Failed");
+                                                 console.log("Failed");
                                                  else if(result == 3)
                                                  console.log("Not Sent");
                                                  
@@ -110,7 +110,7 @@ function share_on_twitter(){
 }
 
 function share_by_email(){
-    EmailComposer.prototype.showEmailComposer("Check out the 'Mawalking Radio' app","Hey!<br><br>Check out this awesome african music app called Mawalking Radio!<br><br><a href='http://itunes.apple.com/us/app/mawalking-radio/id535067665?mt=8&uo=4' target='itunes_store'><img src='http://r.mzstatic.com/images/web/linkmaker/badge_appstore-lrg.gif' alt='Mawalking Radio' style='border:0'></a>","","","",true);
+    window.plugins.emailComposer.showEmailComposerWithCallback("","Check out the 'Mawalking Radio' app","Hey!<br><br>Check out this awesome african music app called Mawalking Radio!<br><br><a href='http://itunes.apple.com/us/app/mawalking-radio/id535067665?mt=8&uo=4' target='itunes_store'><img src='http://r.mzstatic.com/images/web/linkmaker/badge_appstore-lrg.gif' alt='Mawalking Radio' style='border:0'></a>","","","",true);
 }
     
 function create_sharepage(){
@@ -119,11 +119,7 @@ function create_sharepage(){
         div.id = 'sp-wrapper';
         div.style.top = window.innerHeight + window.pageYOffset + 'px';
         div.style.webkitTransitionProperty = '-webkit-transform';
-        div.innerHTML = "<span onTouchend='if(!allowClick) return false; toggle_sharepage(\"close\"); share_by_SMS()'><img src='img/share/icon_message.png' width='80'></span>";
-        div.innerHTML+= "<span onTouchend='if(!allowClick) return false; toggle_sharepage(\"close\"); share_by_email()'><img src='img/share/icon_mail.png' width='80'></span>";
-        div.innerHTML+= "<span onTouchend='if(!allowClick) return false; toggle_sharepage(\"close\"); share_on_twitter()'><img src='img/share/icon_twitter.png' width='80'></span>";
-        div.innerHTML+= "<span onTouchend='if(!allowClick) return false; toggle_sharepage(\"close\"); share_on_facebook()'><img src='img/share/icon_facebook.png' width='80'></span>";
-        div.innerHTML+= "<div align='center' style='margin-top:30px; padding-top:8px; width:100%; height:60px; background:#ededed; color:rgb(21,125,251); font:normal 26px HelveticaNeue-Thin' onTouchend='if(!allowClick) return false; toggle_sharepage(\"close\")'>Cancel</div>";
+        div.innerHTML = "<div align='center' style='width:100%'><span onclick='toggle_sharepage(\"close\"); share_by_SMS()'><img src='img/share/icon_message.png' width='80'></span><span onclick='toggle_sharepage(\"close\"); share_by_email()'><img src='img/share/icon_mail.png' width='80'></span><span onclick='toggle_sharepage(\"close\"); share_on_twitter()'><img src='img/share/icon_twitter.png' width='80'></span><span onclick='toggle_sharepage(\"close\"); share_on_facebook()'><img src='img/share/icon_facebook.png' width='80'></span><div align='center' style='margin-top:30px; padding-top:8px; width:100%; height:60px; background:#ededed; color:rgb(21,125,251); font:normal 26px HelveticaNeue-Thin, AvenirNext-UltraLight' onclick='toggle_sharepage(\"close\")'>Cancel</div></div>";
         document.body.appendChild(div);
         position="closed";
     }

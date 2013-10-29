@@ -11,9 +11,10 @@
 
     <preference name="fullscreen" value="true" />
 		<preference name="stay-in-webview" value="true" />
-		<preference name="orientation" value="portrait" />
+
 
 <access origin="*"/>
 
-<gap:plugin name="com.phonegap.plugins.EmailComposer" />
+<gap:plugin name="com.arnia.plugins.smsbuilder" />
+<gap:plugin name="com.phonegap.plugins.emailcomposer" />
 </widget>

@@ -16,7 +16,7 @@ body {
     width:200px;
     position:absolute;
     top:15px;
-    right:0px
+    right:100px
 }
 
 .africa{
@@ -41,6 +41,10 @@ body {
     padding:20px 0px;
     -webkit-transition: all .25s ease-out;
     background: white;
+}
+
+#sp-wrapper span{
+    display:inline-block;
 }
 
 #sp-wrapper a {
