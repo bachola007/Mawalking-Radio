@@ -9,7 +9,7 @@
         Mawalking Radio
     </description>
 
-    <preference name="fullscreen" value="true" />
+    <preference name="orientation" value="portrait" />
 		<preference name="stay-in-webview" value="true" />
 
 

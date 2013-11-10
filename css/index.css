@@ -23,14 +23,13 @@ body {
     width:500px;
     position:absolute;
     top:40px;
-    left:-10px
+    left:0px
 }
 
 #player{
 		width:100%;
-		border:1px dotted blue;
     position:absolute;
-    top:350px;
+    top:450px;
 }
 
 
