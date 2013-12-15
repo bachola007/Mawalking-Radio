@@ -17,4 +17,5 @@
 
 <gap:plugin name="com.arnia.plugins.smsbuilder" />
 <gap:plugin name="com.phonegap.plugins.emailcomposer" />
+
 </widget>
