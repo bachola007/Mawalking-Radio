@@ -16,11 +16,11 @@ body {
     width:200px;
     position:absolute;
     top:15px;
-    right:10px
+    right:0px
 }
 
 .africa{
-    width:200px;
+    width:300px;
     position:absolute;
     top:20px;
     left:0px
@@ -29,7 +29,7 @@ body {
 #player{
 		width:100%;
     position:absolute;
-    top:450px;
+    top:250px;
 }
 
 
