@@ -15,7 +15,7 @@
 
 <access origin="*"/>
 
-<gap:plugin name="com.arnia.plugins.smsbuilder" />
-<gap:plugin name="com.phonegap.plugins.emailcomposer" />
+
+<gap:plugin name="de.appplant.cordova.plugin.email-composer" />
 
 </widget>
