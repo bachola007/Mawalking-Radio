@@ -16,6 +16,6 @@
 <access origin="*"/>
 
 
-<gap:plugin name="de.appplant.cordova.plugin.email-composer" />
+<gap:plugin name="com.phonegap.plugins.emailcomposer" />
 
 </widget>
