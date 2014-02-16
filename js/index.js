@@ -110,6 +110,7 @@ function share_on_twitter(){
 }
 
 function share_by_email(){
+alert("share_by_email");
     window.plugins.emailComposer.showEmailComposerWithCallback("","Check out the 'Mawalking Radio' app","Hey!<br><br>Check out this awesome african music app called Mawalking Radio!<br><br><a href='http://itunes.apple.com/us/app/mawalking-radio/id535067665?mt=8&uo=4' target='itunes_store'><img src='http://r.mzstatic.com/images/web/linkmaker/badge_appstore-lrg.gif' alt='Mawalking Radio' style='border:0'></a>","","","",true);
 }
     
