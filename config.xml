@@ -16,6 +16,6 @@
 <access origin="*"/>
 
 
-<gap:plugin name="com.phonegap.plugins.emailcomposer" />
+<gap:plugin name="com.jcjee.plugins.emailcomposer" />
 
 </widget>
