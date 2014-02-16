@@ -66,6 +66,13 @@ alert(orientation);
                             console.log("appMLReady");
 
 
+window.plugin.email.isServiceAvailable(
+    function (isAvailable) {
+        alert(isAvailable ? 'Service is available' : 'Service NOT available');
+    }
+);
+
+
                             // IMPORTANT
                             var viewportheight = (window.height=="480")?420:350;
                             $(document).bind('touchmove', function (e) {
