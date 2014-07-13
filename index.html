@@ -70,7 +70,15 @@ alert(orientation);
 
 
                             // IMPORTANT
-                            var viewportheight = (window.height=="480")?420:350;
+
+
+
+                            var available_height = $( window ).height()-44-45-48;
+
+														$(".cssscrollable,.cssscrollable > div").height(available_height);
+														$(".cssscrollable > div > div").height(eval(available_height+1));
+
+
                             $(document).bind('touchmove', function (e) {
                                              var $scroller = $(e.target).closest(".cssscrollable");
                                              if($scroller.length==0){
@@ -81,6 +89,8 @@ alert(orientation);
                             
                             
                             
+
+
                             create_sharepage();
                         
                             fetch_title();
@@ -97,7 +107,7 @@ alert(orientation);
                             $("#schedule_page:visible").livequery(function(){
                                 $("#schedule_table").html("<br><br><table width='100%'>");
                                 for(i=0;i<schedule.length;i++){
-                                    $("#schedule_table").append("<tr><td width='80%'>"+schedule[i][0]+"</td><td width='20%'>"+schedule[i][1]+" - "+schedule[i][2]+"</td></tr>");
+                                    $("#schedule_table").append("<tr><td width='78%' style='white-space:normal'>"+schedule[i][0]+"</td><td width='20%' style='white-space:nowrap'>"+schedule[i][1]+" - "+schedule[i][2]+"</td></tr>");
                                 }
                                 $("#schedule_table").append("</table>");
                             });
@@ -169,25 +179,7 @@ alert(orientation);
                     
                     
                 <style>
-                    .blur{
-                        -webkit-filter:blur(10px);
-                    }
-                    
-                    ::-webkit-scrollbar {
-                        display: none;
-                    }
 
-                        
-                .cssscrollable{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:450px;}
-                .cssscrollable > div{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:450px;}
-                .cssscrollable > div > div{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:451px;}
-                
-                
-                    @media (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
-                        .cssscrollable{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:437px;}
-                        .cssscrollable > div{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:437px;}
-                        .cssscrollable > div > div{overflow-y: scroll;-webkit-overflow-scrolling: touch; height:445px;}
-                    }
                     
                     
             </style>
@@ -209,20 +201,20 @@ alert(orientation);
                        
                             
                         <img class="africa" src="img/africa.png">
-                                
+                        <img class="mic" src="img/mic.png">
                                 
 <br><br><br>
-                                <div id="player">
-                                    <img id="audiobutton" src="img/play.png" onclick="toogleStream()" width="105px" style="position:relative; top:30px; right:0px">
-                                    <div align="center" style="font-size: 22px; color:#000">PLAYING NOW</div>
-                                    <div style="height:55px; width:100%; border:1px solid #666; background: -webkit-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 29%);">
-                                        <div class="myMarquee">
-                                            <div class="scroller" onclick="toogleStream()">
-                                                <div id="title"></div>
-                                            </div>
-                                        </div>
+                        <div id="player">
+                            <img id="audiobutton" src="img/play.png" onclick="toogleStream()" width="105px" style="position:relative; top:30px; right:0px">
+                            <div align="center" style="font-size: 22px; color:#000">PLAYING NOW</div>
+                            <div style="height:55px; width:100%; border:1px solid #666; background: -webkit-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 29%);">
+                                <div class="myMarquee">
+                                    <div class="scroller" onclick="toogleStream()">
+                                        <div id="title"></div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
                     </page>
                     
                 </panel>
@@ -262,7 +254,7 @@ alert(orientation);
                                 
                             </div>
                         </div>
-                        
+
                     </page>
                 </panel>
                 
@@ -280,7 +272,7 @@ alert(orientation);
                             </div>
                         </div>
                         <div align="center" style="z-index:1000000; position:relative; top:280px; left:0px; font:normal 18px AvenirNextCondensed-Regular; text-decoration:underline" onclick="window.open('http://www.youtube.com/channel/UCKqW5SBSlvjOToKfvfaQI2g','_blank','location=no')">Visit our Youtube Channel for more videos</div>
-                       
+                       <img class="mic" src="img/mic.png">
                     </page>
                 </panel>
                 

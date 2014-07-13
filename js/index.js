@@ -102,7 +102,7 @@ window.plugins.smsBuilder.showSMSBuilderWithCB(function(result){
 
 function share_on_facebook(){
     console.log("fb");
-    var ref = window.open('http://m.facebook.com/sharer.php?u=www.mawalkingradio.com/', '_blank', 'location=yes');
+    var ref = window.open('www.facebook.com/sharer/sharer.php/', '_blank', 'location=yes');
 }
 
 function share_on_twitter(){

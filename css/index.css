@@ -12,15 +12,31 @@ body {
     padding: 0;
 }
 
+
+.blur{
+    -webkit-filter:blur(10px);
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+.cssscrollable{overflow-y: scroll;-webkit-overflow-scrolling: touch;}
+.cssscrollable > div{overflow-y: scroll;-webkit-overflow-scrolling: touch;}
+.cssscrollable > div > div{overflow-y: scroll;-webkit-overflow-scrolling: touch;}
+
+
+
 .mic{
-    width:200px;
+    width:100px;
     position:absolute;
     top:15px;
     right:0px
 }
 
 .africa{
-    width:300px;
+    width:150px;
     position:absolute;
     top:20px;
     left:0px
@@ -29,7 +45,7 @@ body {
 #player{
 		width:100%;
     position:absolute;
-    top:250px;
+    bottom:5px;
 }
 
 
@@ -74,7 +90,7 @@ p{
     text-align:left;
     border-bottom: 1px solid #CCC;
     font-size:22px;
-		height:50px;
+		height:44px;
 		overflow:hidden;
 }
 
