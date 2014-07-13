@@ -50,6 +50,7 @@ body {
 
 
 #sp-wrapper {
+
     display:none;
 	position:absolute;
     z-index:30001;
@@ -62,6 +63,8 @@ body {
 
 #sp-wrapper span{
     display:inline-block;
+color:black;
+border:1px solid black;
 }
 
 #sp-wrapper a {
