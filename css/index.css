@@ -29,14 +29,14 @@ body {
 
 
 .mic{
-    width:100px;
+    width:200px;
     position:absolute;
     top:15px;
     right:0px
 }
 
 .africa{
-    width:150px;
+    width:200px;
     position:absolute;
     top:20px;
     left:0px
@@ -45,7 +45,7 @@ body {
 #player{
 		width:100%;
     position:absolute;
-    bottom:5px;
+    bottom:0px;
 }
 
 

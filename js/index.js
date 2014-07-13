@@ -102,16 +102,14 @@ window.plugins.smsBuilder.showSMSBuilderWithCB(function(result){
 
 function share_on_facebook(){
     console.log("fb");
-    var ref = window.open('www.facebook.com/sharer/sharer.php/', '_blank', 'location=yes');
+    var ref = window.open('http://www.facebook.com/sharer/sharer.php/', '_blank', 'location=yes');
 }
 
 function share_on_twitter(){
     var ref = window.open('http://mobile.twitter.com/home?status=www.mawalkingradio.com/', '_blank', 'location=yes');
 }
 
-function share_by_email(){
-    window.plugins.emailComposer.showEmailComposerWithCallback("","Check out the 'Mawalking Radio' app","Hey!<br><br>Check out this awesome african music app called Mawalking Radio!<br><br><a href='http://itunes.apple.com/us/app/mawalking-radio/id535067665?mt=8&uo=4' target='itunes_store'><img src='http://r.mzstatic.com/images/web/linkmaker/badge_appstore-lrg.gif' alt='Mawalking Radio' style='border:0'></a>","","","",true);
-}
+
     
 function create_sharepage(){
     if($("#sp-wrapper").length==0){
@@ -119,7 +117,7 @@ function create_sharepage(){
         div.id = 'sp-wrapper';
         div.style.top = window.innerHeight + window.pageYOffset + 'px';
         div.style.webkitTransitionProperty = '-webkit-transform';
-        div.innerHTML = "<div align='center' style='width:100%'><span onclick='toggle_sharepage(\"close\"); share_by_SMS()'><img src='img/share/icon_message.png' width='80'></span><span onclick='toggle_sharepage(\"close\"); share_by_email()'><img src='img/share/icon_mail.png' width='80'></span><span onclick='toggle_sharepage(\"close\"); share_on_twitter()'><img src='img/share/icon_twitter.png' width='80'></span><span onclick='toggle_sharepage(\"close\"); share_on_facebook()'><img src='img/share/icon_facebook.png' width='80'></span><div align='center' style='margin-top:30px; padding-top:8px; width:100%; height:60px; background:#ededed; color:rgb(21,125,251); font:normal 26px HelveticaNeue-Thin, AvenirNext-UltraLight' onclick='toggle_sharepage(\"close\")'>Cancel</div></div>";
+        div.innerHTML = "<div align='center' style='width:100%'><span onclick='toggle_sharepage(\"close\")'><a href='sms:?subject=Check out the Mawalking Radio app?body=Hey! Check out this awesome african music app called Mawalking Radio!'><img src='img/share/icon_message.png' width='80'></a></span><span onclick='toggle_sharepage(\"close\")'><a href='mailto:?subject=Check out the Mawalking Radio app?body=Hey! Check out this awesome african music app called Mawalking Radio!'><img src='img/share/icon_mail.png' width='80'></a></span><span onclick='toggle_sharepage(\"close\")'><img src='img/share/icon_twitter.png' width='80'></span><span onclick='toggle_sharepage(\"close\"); share_on_facebook()'><img src='img/share/icon_facebook.png' width='80'></span><div align='center' style='margin-top:30px; padding-top:8px; width:100%; height:60px; background:#ededed; color:rgb(21,125,251); font:normal 26px HelveticaNeue-Thin, AvenirNext-UltraLight' onclick='toggle_sharepage(\"close\")'>Cancel</div></div>";
         document.body.appendChild(div);
         position="closed";
     }
