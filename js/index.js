@@ -85,24 +85,9 @@ function parseXML(xml) {
 
 
 
-function share_by_SMS(){
-window.plugins.smsBuilder.showSMSBuilderWithCB(function(result){
-                                                 
-                                                 if(result == 0)
-                                                 console.log("Cancelled");
-                                                 else if(result == 1)
-                                                 console.log("Sent");
-                                                 else if(result == 2)
-                                                 console.log("Failed");
-                                                 else if(result == 3)
-                                                 console.log("Not Sent");
-                                                 
-                                                 },'', "Hey!\r\n\r\nCheck out this awesome african music app called Mawalking Radio!\r\n\r\nhttp://itunes.apple.com/us/app/mawalking-radio/id535067665?mt=8&uo=4");
-}
-
 function share_on_facebook(){
     console.log("fb");
-    var ref = window.open('http://www.facebook.com/sharer/sharer.php/', '_blank', 'location=yes');
+    var ref = window.open('http://www.facebook.com/sharer?u=www.mawalkingradio.com/sharer.php/', '_blank', 'location=yes');
 }
 
 function share_on_twitter(){
