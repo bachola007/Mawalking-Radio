@@ -16,6 +16,4 @@
 <access origin="*"/>
 
 
-<gap:plugin name="com.jcjee.plugins.emailcomposer" />
-
 </widget>
